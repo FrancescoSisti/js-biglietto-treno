@@ -5,6 +5,9 @@ il prezzo del biglietto è definito in base ai km (0.21 € al km)
 va applicato uno sconto del 20% per i minorenni
 va applicato uno sconto del 40% per gli over 65.*/
 
+//Fase di preparazione
+const priceElement = document.getElementById('price');
+
 //Fase di raccolta dati
 //Chiedere i chilometri all'utente
 const km = parseInt(prompt("Inserisci il numero di chilometri che devi percorrere"));
@@ -18,25 +21,23 @@ console.log(`Età richiesta`, age);
 if (isNaN(km) || isNaN(age)) {
     alert('Non hai inserito valori accettabili')
 } else {
-    //Calcolo del prezzo base del biglietto per km
     const basePrice = km * 0.21;
     console.log('Prezzo biglietto base', basePrice)
 
-    //Calcolo percentuale di sconto se minorenne oppure over 65
     let finalPrice = basePrice;
-    //se minorenne
+    let message = 'Hai ricevuto uno sconto del ';
+
     if (age < 18) {
-        finalPrice = 0.8;
-        //se over 65
+        finalPrice *= 0.8;
+        message += '20%'
     } else if (age >= 65) {
-        finalPrice = 0.6;
+        finalPrice *= 0.6;
+        message += '40%'
     }
-    //aggiungo due decimali al prezzo del biglietto, e il valore euro
+
     finalPrice = finalPrice.toFixed(2) + '€';
     console.log('Ticket Price', finalPrice)
 
-
-    //? FASE DI OUTPUT
-    //alert con il prezzo del biglietto
-    alert(`Grazie per averci scelto! Il prezzo del tuo biglietto è: ${finalPrice}`)
+    //Fase di output
+    priceElement.innerHTML = `Il prezzo finale del tuo biglietto è: ${finalPrice} <br> ${message}`
 }
